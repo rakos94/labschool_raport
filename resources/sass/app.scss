@@ -1,0 +1,11 @@
+//
+
+@import '~bootstrap/dist/css/bootstrap.min.css';
+@import './sb-admin/dist/css/styles.css';
+
+$px-40: 40px;
+
+.py-px-40{
+  padding-top: $px-40;
+  padding-bottom: $px-40;
+}
