@@ -7,11 +7,11 @@
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
-                <li class="nav-item active">
-                    <a class="nav-link" href="#">Dashboard <span class="sr-only">(current)</span></a>
+                <li class="nav-item {{ (request()->is('home')) ? 'active' : '' }}">
+                    <a class="nav-link" href="/home">Dashboard <span class="sr-only">(current)</span></a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Data Siswa</a>
+                <li class="nav-item {{ (request()->is('data-siswa')) ? 'active' : '' }}">
+                    <a class="nav-link" href="/data-siswa">Data Siswa</a>
                 </li>
             </ul>
             <div>
