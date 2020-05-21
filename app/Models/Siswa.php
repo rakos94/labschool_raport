@@ -3,11 +3,12 @@
 namespace App\Models;
 
 use Illuminate\Contracts\Auth\MustVerifyEmail;
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
-class Siswa extends Model
+class Siswa extends Authenticatable
 {
+	use Notifiable;
 
 	protected $table="siswa";
 
@@ -27,7 +28,12 @@ class Siswa extends Model
 	 */
 	protected $hidden = [
 		'password', 'remember_token',
-	];
+    ];
+    
+	public function username()
+	{
+		return 'nis';
+	}
 	
 	public function raports()
 	{

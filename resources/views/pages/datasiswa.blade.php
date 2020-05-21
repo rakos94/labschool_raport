@@ -11,8 +11,8 @@
         </div>
         @endif
         <div class="mb-3">
-            <a class="btn btn-light" href="/tambah-siswa">Tambah Data Siswa</a>
-            <a class="btn btn-light" href="/hapus-siswa">Hapus Data Siswa</a>
+            <a class="btn btn-light" href="/admin/tambah-siswa">Tambah Data Siswa</a>
+            <a class="btn btn-light" href="/admin/hapus-siswa">Hapus Data Siswa</a>
         </div>
         <table class="table table-bordered">
             <thead class="thead-light">
@@ -34,13 +34,13 @@
                     <td>
                         @if($siswa->raports->count() > 0)
                         <div class="mr-2 mb-2">
-                            <form method="get" action="/download">
+                            <form method="get" action="/admin/download">
                                 <input type="hidden" name="file_location" value="{{ $siswa->raports->last()->file_location }}">
                                 <button class="btn btn-primary">{{ $siswa->raports->last()->file_name }}</button>
                             </form>
                         </div>
                         @endif
-                        <a class="btn btn-light btn-sm" href="/siswa/{{ $siswa->id }}">+ Tambah</a>
+                        <a class="btn btn-light btn-sm" href="/admin/siswa/{{ $siswa->id }}">+ Tambah</a>
                     </td>
                 </tr>
                 @endforeach

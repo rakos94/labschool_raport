@@ -7,12 +7,20 @@
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
+                @if(request()->is('*admin*'))
                 <li class="nav-item {{ (request()->is('home')) ? 'active' : '' }}">
-                    <a class="nav-link" href="/home">Dashboard <span class="sr-only">(current)</span></a>
+                    <a class="nav-link" href="/admin/home">
+                        Dashboard <span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item {{ (request()->is('data-siswa')) ? 'active' : '' }}">
-                    <a class="nav-link" href="/data-siswa">Data Siswa</a>
+                    <a class="nav-link" href="/admin/data-siswa">Data Siswa</a>
                 </li>
+                @else
+                <li class="nav-item {{ (request()->is('home')) ? 'active' : '' }}">
+                    <a class="nav-link" href="/home{{ (request()->is('*siswa')) ? '/siswa' : '' }}">
+                        Dashboard <span class="sr-only">(current)</span></a>
+                </li>
+                @endif
             </ul>
             <div>
                 <div class="dropdown">

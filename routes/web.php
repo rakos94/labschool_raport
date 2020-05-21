@@ -14,16 +14,38 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return redirect()->route('login');
-    return view('welcome');
+    if(Auth::check()) {
+        return redirect()->route('home');
+    }
+    else if(Auth::guard('web-siswa')->check()) {
+        return redirect()->route('siswa.home');
+    }
+    return redirect()->route('siswa.login');
+    // return view('welcome');
 });
 
-Route::get('/login', 'LoginController@view')->name('login');
-Route::post('/login/auth', 'LoginController@authenticate');
+Route::middleware(['guest'])->group(function () {
+    Route::prefix('login/admin')->group(function () {
+        Route::get('/', 'LoginController@adminView')->name('admin.login');
+        Route::post('/auth', 'LoginController@adminAuthenticate');
+    });
+    Route::prefix('login/siswa')->group(function () {
+        Route::get('/', 'LoginController@siswaView')->name('siswa.login');
+        Route::post('/auth', 'LoginController@siswaAuthenticate');
+    });
+});
 
-Route::middleware(['auth'])->group(function () {
+Route::get('/logout', 'HomeController@logout')->name('logout');
+
+Route::middleware(['auth:web-siswa'])->group(function () {
+    Route::prefix('home/siswa')->group(function () {
+        Route::get('/', 'HomeController@siswaHome')->name('siswa.home');
+    });
+    Route::get('/download', 'HomeController@download')->name('siswa.download');
+});
+
+Route::middleware(['auth:web'])->prefix('admin')->group(function () {
     Route::get('/home', 'HomeController@page')->name('home');
-    Route::get('/logout', 'HomeController@logout')->name('logout');
     Route::get('/data-siswa', 'HomeController@datasiswa')->name('datasiswa');
     Route::get('/siswa/{id}', 'HomeController@showSiswa')->name('show.siswa');
     Route::post('/upload', 'HomeController@upload')->name('upload');

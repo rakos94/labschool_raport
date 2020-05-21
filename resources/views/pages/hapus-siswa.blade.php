@@ -9,8 +9,9 @@
             <div class="col-8">
                 <div class="card">
                     <div class="card-body">
-                        <form method="get" action="/hapus-siswa/confirm" enctype="multipart/form-data">
+                        <form method="get" action="/admin/hapus-siswa/confirm" enctype="multipart/form-data">
                             @csrf
+                            @include('shared.errors')
                             <div class="row mb-3">
                                 <div class="col">NIS</div>
                                 <div class="col"><input type="text" name="nis" class="form-control" placeholder="NIS"></div>

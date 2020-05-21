@@ -9,8 +9,9 @@
             <div class="col-8">
                 <div class="card">
                     <div class="card-body">
-                        <form method="post" action="/tambah-siswa/post" enctype="multipart/form-data">
+                        <form method="post" action="/admin/tambah-siswa/post" enctype="multipart/form-data">
                             @csrf
+                            @include('shared.errors')
                             <div class="row mb-3">
                                 <div class="col">NIS</div>
                                 <div class="col"><input type="text" name="nis" class="form-control" placeholder="NIS"></div>

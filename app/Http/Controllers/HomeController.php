@@ -19,7 +19,13 @@ class HomeController extends Controller
     {
         return view('pages.home');
     }
-
+    
+    public function siswaHome()
+    {
+        $siswa = Siswa::find(Auth::guard('web-siswa')->user()->id);
+        return view('pages.siswa.home', compact('siswa'));
+    }
+    
     public function datasiswa(Request $request)
     {
         $request->flash('status', 'Sukses menambah raport!');
@@ -30,7 +36,8 @@ class HomeController extends Controller
     public function logout()
     {
         Auth::logout();
-        return redirect()->route('login');
+        Auth::guard('web-siswa')->logout();
+        return redirect('/');
     }
 
     public function showSiswa($id)
@@ -41,6 +48,9 @@ class HomeController extends Controller
 
     public function upload(Request $request)
     {
+        $request->validate([
+            'raport' => 'required|file',
+        ]);
         $filename = $request->file('raport')->getClientOriginalName();
         $path = $request->file('raport')->storeAs(
             'raports/'.$request->get('nis'), $filename
@@ -66,6 +76,11 @@ class HomeController extends Controller
     
     public function tambahSiswaPost(Request $request)
     {
+        $request->validate([
+            'nis' => 'required|unique:siswa,nis|max:255',
+            'name' => 'required',
+            'password' => 'required',
+        ]);
         $siswa = Siswa::create([
             'nis' => $request->nis,
             'name' => $request->name,
@@ -87,8 +102,15 @@ class HomeController extends Controller
     
     public function hapusSiswaPost(Request $request)
     {
+        // $request->validate([
+        //     'nis' => 'required',
+        // ]);
         $siswa = Siswa::where('nis',$request->nis)->delete();
-        return redirect()->route('datasiswa')->with('status', 'Sukses menghapus data siswa!');
+        if($siswa > 0){
+            return redirect()->route('datasiswa')->with('status', 'Sukses menghapus data siswa!');
+        } else {
+            return redirect()->back()->withErrors(['Gagal mengahapus data siswa!']);
+        }
     }
     
 }

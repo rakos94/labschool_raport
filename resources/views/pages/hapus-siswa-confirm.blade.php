@@ -9,8 +9,10 @@
             <div class="col-8">
                 <div class="card">
                     <div class="card-body">
-                        <form method="post" action="/hapus-siswa/post" enctype="multipart/form-data">
+                        <form method="post" action="/admin/hapus-siswa/post" enctype="multipart/form-data">
                             @csrf
+                            @include('shared.errors')
+                            <input type="hidden" name="nis" value="{{ $siswa->nis }}">
                             <div class="row mb-3">
                                 <div class="col">NIS</div>
                                 <div class="col">{{ $siswa->nis }}</div>
@@ -26,7 +28,7 @@
                                         <button class="btn btn-primary btn-block" type="submit">Ya</button>
                                     </div>
                                     <div class="col">
-                                        <a class="btn btn-light btn-block" href="/data-siswa">Tidak</a>
+                                        <a class="btn btn-light btn-block" href="/admin/data-siswa">Tidak</a>
                                     </div>
                                 </div>
                             </div>

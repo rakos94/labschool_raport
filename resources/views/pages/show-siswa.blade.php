@@ -9,8 +9,9 @@
             <div class="col-8">
                 <div class="card">
                     <div class="card-body">
-                        <form method="post" action="/upload" enctype="multipart/form-data">
+                        <form method="post" action="/admin/upload" enctype="multipart/form-data">
                             @csrf
+                            @include('shared.errors')
                             <div class="row mb-3">
                                 <div class="col">NIS</div>
                                 <div class="col">{{ $siswa->nis }}</div>
@@ -20,7 +21,7 @@
                                 <div class="col">{{ $siswa->name }}</div>
                             </div>
                             <div class="row mb-3">
-                                <div class="col">File</div>
+                                <div class="col">Raport File</div>
                                 <div class="col">
                                     <input type="file" class="" name="raport">
                                 </div>
