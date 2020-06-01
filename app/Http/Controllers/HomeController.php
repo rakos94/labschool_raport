@@ -66,6 +66,7 @@ class HomeController extends Controller
 
     public function download(Request $request)
     {
+        dd($request->file_location);
         return Storage::disk('public')->download($request->file_location);
     }
     
