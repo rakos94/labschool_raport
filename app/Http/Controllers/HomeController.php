@@ -53,7 +53,7 @@ class HomeController extends Controller
         ]);
         $filename = $request->file('raport')->getClientOriginalName();
         $path = $request->file('raport')->storeAs(
-            'raports/'.$request->get('nis'), $filename
+            'raports/'.$request->get('nis'), $filename, 'public'
         );
 
         $siswa = Siswa::whereNis($request->nis)->first();
@@ -66,7 +66,7 @@ class HomeController extends Controller
 
     public function download(Request $request)
     {
-        return Storage::download($request->file_location);
+        return Storage::disk('public')->download($request->file_location);
     }
     
     public function tambahSiswa()
